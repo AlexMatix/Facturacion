@@ -13,6 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-});
+});*/
+
+Route::resource('articulos', 'Articulos\articulos_controller', ['except' => ['create','edit']]);
+Route::resource('clientes', 'Clientes\clientes_controller', ['except' => ['create','edit']]);
+Route::resource('empresa', 'Empresa\empresa_controller', ['except' => ['create','edit']]);
+Route::resource('facturacion', 'Facturacion\facturacion_controller', ['except' => ['create','edit']]);
+Route::resource('impuestos', 'Impuestos\impuestos_controller', ['except' => ['create','edit']]);
+
+

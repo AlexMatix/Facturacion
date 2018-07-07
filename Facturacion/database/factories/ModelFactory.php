@@ -1,5 +1,11 @@
 <?php
 
+use App\articulos;
+use App\clientes;
+use App\impuestos;
+use App\imp_art;
+use App\empresa;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -12,7 +18,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+/* $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -20,5 +26,53 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+    ];
+}); */
+
+//LLENAMOS ARTÍCULOS
+$factory->define(articulos::class, function (Faker\Generator $faker) {
+
+    return [
+        'clave'    => $faker->sentence,
+        'descripcion' => $faker->sentence,
+        'clave_sat' => $faker->word,
+        'descripcion_sat' => $faker->word,
+        'u_medida_sat' => $faker->word,
+        'estado'=> $faker->numberBetween($min = 0,$max = 1),
+    ];
+});
+
+$factory->define(clientes::class, function (Faker\Generator $faker) {
+
+    return [
+        'Nombre'    => $faker->name,
+        'RFC' => $faker->sentence,
+        'estado' => $faker->numberBetween($min= 0,$max=1),
+    ];
+});
+
+$factory->define(impuestos::class, function (Faker\Generator $faker) {
+
+    return [
+        'clave'    => $faker->word,
+        'impuesto' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 10),
+    ];
+});
+
+$factory->define(imp_art::class, function (Faker\Generator $faker) {
+
+    $articulos = articulos::all()->random();
+    $impuestos = impuestos::all()->random();
+
+    return [
+        'id_impuesto'   => $impuestos->id,
+        'id_articulo'   => $articulos->id,
+    ];
+});
+
+$factory->define(empresa::class, function (Faker\Generator $faker) {
+
+    return [
+        'rfc'   => $faker->word,
     ];
 });

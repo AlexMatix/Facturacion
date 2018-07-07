@@ -16,7 +16,7 @@ class CreateImpuestosTable extends Migration
         Schema::create('impuestos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('clave', 200);
-            $table->decimal('impuesto');
+            $table->float('impuesto');
             $table->timestamps();
         });
     }
