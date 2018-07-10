@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Http\Controllers\apicontroller;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
+use App\empresa;
 
-class empresa_controller extends Controller
+class empresa_controller extends apicontroller
 {
     /**
      * Display a listing of the resource.
@@ -14,17 +16,12 @@ class empresa_controller extends Controller
      */
     public function index()
     {
-        //
-    }
+        $empresa = Empresa::where("estado", "<>", 0)->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        if (empty($empresa)){
+            return $this->errorResponse('Empresas no encontrados', 409);
+        }
+        return $this->showAll($empresa, 200);
     }
 
     /**
@@ -35,7 +32,20 @@ class empresa_controller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $campos = $request->all();
+            $newEmpresa = new Empresa;
+            $newEmpresa->Nombre = $campos['Nombre'];
+            $newEmpresa->RFC = $campos['RFC'];
+            $newEmpresa->regimen = $campos['regimen'];
+            $newEmpresa->estado = 1;
+
+            if($newEmpresa->save())
+                return $this->succesMessaje("Empresa creada correctamente", 201);
+
+        }catch (QueryException $e){
+            return $this->errorResponse("RFC ya registrado", 409);
+        }
     }
 
     /**
@@ -46,18 +56,11 @@ class empresa_controller extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $empresa = Empresa::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        if ($empresa->estado == 1)
+            return $this->showOne($empresa, 200);
+        return $this->errorResponse('Empresa no encontrada', 404);
     }
 
     /**

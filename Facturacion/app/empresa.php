@@ -8,7 +8,10 @@ class empresa extends Model
 {
     protected $fillable = [
         'id',
-        'rfc',
+        'Nombre',
+        'RFC',
+        'regimen',
+        'estado',
     ];
 
     public  $timestamps = false;

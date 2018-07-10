@@ -15,8 +15,10 @@ class CreateEmpresasTable extends Migration
     {
         Schema::create('empresas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('rfc');
-            $table->timestamps();
+            $table->string('Nombre',200);
+            $table->string('RFC',200)-> unique();
+            $table->string('regimen',200);
+            $table->integer('estado')->default(1);
         });
     }
 

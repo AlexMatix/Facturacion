@@ -9,8 +9,13 @@ class impuestos extends Model
 
     protected $fillable = [
         'id',
-        'clave',
-        'impuesto',
+        'Nombre',
+        'tipo',
+        'calculo',
+        'tasa',
+        'unidades',
+        'tipo_iva',
+        'estado',
     ];
 
     public  $timestamps = false;

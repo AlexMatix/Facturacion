@@ -54,8 +54,13 @@ $factory->define(clientes::class, function (Faker\Generator $faker) {
 $factory->define(impuestos::class, function (Faker\Generator $faker) {
 
     return [
-        'clave'    => $faker->word,
-        'impuesto' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 10),
+        'Nombre'    => $faker->word,
+        'tipo'      => $faker->word,
+        'calculo'   => $faker->word,
+        'tasa'      => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 10),
+        'unidades'  => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 10),
+        'tipo_iva'  => $faker->word,
+        'estado' => $faker->numberBetween($min= 0,$max=1),
     ];
 });
 
@@ -73,6 +78,9 @@ $factory->define(imp_art::class, function (Faker\Generator $faker) {
 $factory->define(empresa::class, function (Faker\Generator $faker) {
 
     return [
-        'rfc'   => $faker->word,
+        'Nombre'    => $faker->name,
+        'RFC'       => $faker->sentence,
+        'regimen'   => $faker->word,
+        'estado'=> $faker->numberBetween($min = 0,$max = 1),
     ];
 });

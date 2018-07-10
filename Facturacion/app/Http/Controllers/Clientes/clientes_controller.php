@@ -19,7 +19,7 @@ class clientes_controller extends apicontroller
         $clientes = Clientes::where("estado", "<>", 0)->get();
 
         if (empty($clientes)){
-            return $this->errorResponse('Clientes no encontrados', 404);
+            return $this->errorResponse('Clientes no encontrados', 409);
         }
         return $this->showAll($clientes, 200);
     }
@@ -102,10 +102,10 @@ class clientes_controller extends apicontroller
      */
     public function destroy($id)
     {
-        $clientes = Clientes::findOrFail($id);
-        $clientes -> estado = 0;
-        if ($clientes->save()){
-            return $this -> succesMessaje('Cliente eliminado con éxito', 200);
+        $impuesto = Impuestos::findOrFail($id);
+        $impuesto -> estado = 0;
+        if ($impuesto->save()){
+            return $this -> succesMessaje('Impuesto eliminado con éxito', 200);
         }
     }
 }
