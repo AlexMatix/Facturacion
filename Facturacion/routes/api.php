@@ -22,5 +22,5 @@ Route::resource('clientes', 'Clientes\clientes_controller', ['except' => ['creat
 Route::resource('empresa', 'Empresa\empresa_controller', ['except' => ['create','edit']]);
 Route::resource('facturacion', 'Facturacion\facturacion_controller', ['except' => ['create','edit']]);
 Route::resource('impuestos', 'Impuestos\impuestos_controller', ['except' => ['create','edit']]);
-
+Route::resource('imp_art', 'Impuestos\imp_art_controller', ['except' => ['create','edit']]);
 

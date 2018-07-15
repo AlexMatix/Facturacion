@@ -72,7 +72,31 @@ class empresa_controller extends apicontroller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $empresa = Empresa::findOrFail($id);
+            $campos = $request->all();
+
+            $empresa->Nombre        = empty($campos['Nombre'])
+                                    ? $empresa->Nombre
+                                    : $campos['Nombre'];
+
+            $empresa->RFC           = empty($campos['RFC'])
+                                    ? $empresa->RFC
+                                    : $campos['RFC'];
+
+            $empresa->regimen       = empty($campos['regimen'])
+                                    ? $empresa->regimen
+                                    : $campos['regimen'];
+
+
+            if ($empresa->save()){
+                return $this->showOne($empresa, 201);
+            }
+        }catch (QueryException $e){
+            return $this->errorResponse("RFC ya registrado", 403);
+        }
+
+        return $this->errorResponse("Ocurrio algún error intentelo mas tarde", 500);
     }
 
     /**
@@ -83,6 +107,10 @@ class empresa_controller extends apicontroller
      */
     public function destroy($id)
     {
-        //
+        $empresa = Empresa::findOrFail($id);
+        $empresa -> estado = 0;
+        if ($empresa->save()){
+            return $this -> succesMessaje('Empresa eliminada con éxito', 200);
+        }
     }
 }

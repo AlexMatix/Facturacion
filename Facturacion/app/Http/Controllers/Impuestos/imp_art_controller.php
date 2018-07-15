@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Impuestos;
 
+use App\Http\Controllers\apicontroller;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
+use App\imp_art;
 
-class imp_art_controller extends Controller
+class imp_art_controller extends apicontroller
 {
     /**
      * Display a listing of the resource.
@@ -14,17 +16,17 @@ class imp_art_controller extends Controller
      */
     public function index()
     {
-        //
-    }
+        $consulta = imp_art::join('articulos','imp_arts.id_articulo','=','articulos.id')
+                        -> join('impuestos','imp_arts.id_impuesto','=','impuestos.id')
+                        -> where("articulos.estado", "<>", 0)
+                        -> where( "impuestos.estado", "<>", 0)
+                        -> select('articulos.clave','impuestos.nombre', 'impuestos.tipo','impuestos.calculo','impuestos.tasa','impuestos.unidades','impuestos.tipo_iva')
+                        ->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        if (empty($consulta)){
+            return $this->errorResponse('Impuestos no encontrados', 409);
+        }
+        return $this->showAll($consulta, 200);
     }
 
     /**
@@ -35,7 +37,30 @@ class imp_art_controller extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $campos = $request->all();
+
+        $articulo = $campos['articulo'];
+
+        $impuestos = $campos['impuestos'];
+
+        foreach ($impuestos as $impuesto){
+            $newImp_Art = new imp_art();
+            $newImp_Art ->Id_Articulo = $articulo['id_articulo'];
+            $newImp_Art ->Id_Impuesto = $impuesto['imp'];
+            $newImp_Art ->save();
+        }
+
+        return $this->succesMessaje("Artículo e Impuestos asociados correctamente", 201);
+
+        /**
+        $newImp_Art = new imp_art();
+        $newImp_Art->Id_Articulo = $campos['id_articulo'];
+        $newImp_Art->Id_Impuesto = $campos['id_impuesto'];
+
+        if($newImp_Art->save())
+            return $this->succesMessaje("Artículo e Impuesto asociado correctamente", 201);
+         */
     }
 
     /**
@@ -46,18 +71,18 @@ class imp_art_controller extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $consulta = imp_art::join('articulos','imp_arts.id_articulo','=','articulos.id')
+            -> join('impuestos','imp_arts.id_impuesto','=','impuestos.id')
+            -> where("articulos.estado", "<>", 0)
+            -> where( "impuestos.estado", "<>", 0)
+            -> where("articulos.id", "=", $id)
+            -> select('articulos.clave','impuestos.nombre', 'impuestos.tipo','impuestos.calculo','impuestos.tasa','impuestos.unidades','impuestos.tipo_iva')
+            ->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        if (empty($consulta)){
+            return $this->errorResponse('Impuestos no encontrados', 409);
+        }
+        return $this->showAll($consulta, 200);
     }
 
     /**
@@ -69,7 +94,22 @@ class imp_art_controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        imp_art:: where('id_articulo','=',$id) -> delete();
+
+        $campos = $request->all();
+
+        $articulo = $campos['articulo'];
+
+        $impuestos = $campos['impuestos'];
+
+        foreach ($impuestos as $impuesto){
+            $newImp_Art = new imp_art();
+            $newImp_Art ->Id_Articulo = $articulo['id_articulo'];
+            $newImp_Art ->Id_Impuesto = $impuesto['imp'];
+            $newImp_Art ->save();
+        }
+
+        return $this->succesMessaje("Artículo e Impuestos asociados correctamente", 201);
     }
 
     /**

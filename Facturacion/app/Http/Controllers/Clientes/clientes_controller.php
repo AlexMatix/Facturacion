@@ -102,10 +102,10 @@ class clientes_controller extends apicontroller
      */
     public function destroy($id)
     {
-        $impuesto = Impuestos::findOrFail($id);
-        $impuesto -> estado = 0;
-        if ($impuesto->save()){
-            return $this -> succesMessaje('Impuesto eliminado con éxito', 200);
+        $clientes = Clientes::findOrFail($id);
+        $clientes -> estado = 0;
+        if ($clientes->save()){
+            return $this -> succesMessaje('Cliente eliminado con éxito', 200);
         }
     }
 }

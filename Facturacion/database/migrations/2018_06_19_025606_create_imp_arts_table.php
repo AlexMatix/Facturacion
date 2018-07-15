@@ -17,7 +17,6 @@ class CreateImpArtsTable extends Migration
             $table->increments('id');
             $table->integer('id_impuesto') ->unsigned();
             $table->integer('id_articulo') ->unsigned();
-            $table->timestamps();
 
             //DEFINIMOS LLAVES FORANEAS
             $table->foreign('id_impuesto')->references('id')->on('impuestos');

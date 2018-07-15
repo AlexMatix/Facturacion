@@ -38,7 +38,7 @@ $factory->define(articulos::class, function (Faker\Generator $faker) {
         'clave_sat' => $faker->word,
         'descripcion_sat' => $faker->word,
         'u_medida_sat' => $faker->word,
-        'estado'=> $faker->numberBetween($min = 0,$max = 1),
+        'estado'=> $faker->numberBetween($min = 1,$max = 1),
     ];
 });
 
@@ -60,7 +60,7 @@ $factory->define(impuestos::class, function (Faker\Generator $faker) {
         'tasa'      => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 10),
         'unidades'  => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 10),
         'tipo_iva'  => $faker->word,
-        'estado' => $faker->numberBetween($min= 0,$max=1),
+        'estado' => $faker->numberBetween($min= 1,$max=1),
     ];
 });
 
