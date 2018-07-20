@@ -8,12 +8,24 @@ class facturacion extends Model
 {
     protected $fillable = [
         'id',
-        'id_cliente',
-        'id_empresa',
-        'UUID',
+        'rfc_r',
+        'nombre_r',
+        'rfc_e',
+        'nombre_e',
+        'tipo_cambio',
+        'moneda',
+        'uso_cdfi',
+        'sub_t',
+        'total',
+        'descuento',
+        'uuid',
+        'cert',
+        'cert_sat',
+        'fecha_cert',
+        'cfdi',
+        'sello_sat',
         'cadena',
-        'fecha_c',
-        'fecha_t',
+        'condicion',
     ];
 
     public  $timestamps = false;

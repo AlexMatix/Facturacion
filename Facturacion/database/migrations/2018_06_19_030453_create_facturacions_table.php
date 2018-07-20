@@ -15,13 +15,24 @@ class CreateFacturacionsTable extends Migration
     {
         Schema::create('facturacions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_cliente') ->unsigned();
-            $table->integer('id_empresa') -> unsigned();
-            $table->string('UUID',500);
-            $table->string('cadena', 500);
-            $table->dateTime('fecha_c');
-            $table->dateTime('fecha_t');
-            $table->timestamps();
+            $table->string('rfc_r',200);
+            $table->string('nombre_r',200);
+            $table->string('rfc_e',200);
+            $table->string('nombre_e',200);
+            $table->decimal('tipo_cambio',15,2);
+            $table->string('moneda',200);
+            $table->string('uso_cfdi',500);
+            $table->decimal('sub_t',15,4);
+            $table->decimal('total',15,4);
+            $table->decimal('descuento',15,4);
+            $table->string('uuid',500);
+            $table->string('cert',1000);
+            $table->string('cert_sat',1000);
+            $table->dateTime('fecha_cert');
+            $table->string('cfdi',500);
+            $table->string('sello_sat',1000);
+            $table->string('cadena',1000);
+            $table->string('condicion',1000);
         });
     }
 

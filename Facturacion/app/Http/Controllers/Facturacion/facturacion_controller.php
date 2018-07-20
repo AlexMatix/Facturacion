@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Facturacion;
 
+use App\Http\Controllers\apicontroller;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class facturacion_controller extends Controller
+
+class facturacion_controller extends apicontroller
 {
     /**
      * Display a listing of the resource.
@@ -14,18 +15,10 @@ class facturacion_controller extends Controller
      */
     public function index()
     {
-        //
+        $timbrado = new timbrado_controller();
+        $timbrado->timbra_cdfi();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -49,16 +42,6 @@ class facturacion_controller extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
