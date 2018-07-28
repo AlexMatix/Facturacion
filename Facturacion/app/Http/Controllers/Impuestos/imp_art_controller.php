@@ -44,6 +44,8 @@ class imp_art_controller extends apicontroller
 
         $impuestos = $campos['impuestos'];
 
+        print_r($campos);
+
         foreach ($impuestos as $impuesto){
             $newImp_Art = new imp_art();
             $newImp_Art ->Id_Articulo = $articulo['id_articulo'];
@@ -52,15 +54,6 @@ class imp_art_controller extends apicontroller
         }
 
         return $this->succesMessaje("Artículo e Impuestos asociados correctamente", 201);
-
-        /**
-        $newImp_Art = new imp_art();
-        $newImp_Art->Id_Articulo = $campos['id_articulo'];
-        $newImp_Art->Id_Impuesto = $campos['id_impuesto'];
-
-        if($newImp_Art->save())
-            return $this->succesMessaje("Artículo e Impuesto asociado correctamente", 201);
-         */
     }
 
     /**

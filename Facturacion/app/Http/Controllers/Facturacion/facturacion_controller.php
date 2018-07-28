@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Facturacion;
 
 use App\Http\Controllers\apicontroller;
+use App\Http\Controllers\XML\xml_controller;
 use Illuminate\Http\Request;
-
+use SimpleXMLElement;
 
 class facturacion_controller extends apicontroller
 {
@@ -28,8 +29,13 @@ class facturacion_controller extends apicontroller
      */
     public function store(Request $request)
     {
-        //
+        $campos = $request->all();
+        $funcion = new xml_controller();
+        $xml = $funcion->array2xml($campos, false);
+
+        print_r($xml);
     }
+
 
     /**
      * Display the specified resource.
@@ -37,9 +43,8 @@ class facturacion_controller extends apicontroller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id){
+
     }
 
 
